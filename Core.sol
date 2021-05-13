@@ -336,7 +336,7 @@ contract Ownable is Context {
   }
 }
 
-contract BEP20Standard is Context, IBEP20, Ownable {
+contract KUDA is Context, IBEP20, Ownable {
   using SafeMath for uint256;
 
   mapping (address => uint256) private _balances;
@@ -509,6 +509,30 @@ contract BEP20Standard is Context, IBEP20, Ownable {
     emit Transfer(sender, recipient, amount);
   }
 
+
+
+
+ /**
+   * @dev Destroys `amount` tokens from `account`, reducing the
+   * total supply.
+   *
+   * Emits a {Transfer} event with `to` set to the zero address.
+   *
+   * Requirements
+   *
+   * - `account` cannot be the zero address.
+   * - `account` must have at least `amount` tokens.
+   */
+  function _burn(address account, uint256 amount) internal {
+    require(account != address(0), "BEP20: burn from the zero address");
+
+    _balances[account] = _balances[account].sub(amount, "BEP20: burn amount exceeds balance");
+    _totalSupply = _totalSupply.sub(amount);
+    emit Transfer(account, address(0), amount);
+  }
+
+
+
   /**
    * @dev Sets `amount` as the allowance of `spender` over the `owner`s tokens.
    *
@@ -528,5 +552,11 @@ contract BEP20Standard is Context, IBEP20, Ownable {
 
     _allowances[owner][spender] = amount;
     emit Approval(owner, spender, amount);
+  }
+}
+
+
+  function burn(uint _amount) public {
+    _burn(msg.sender, _amount);
   }
 }
