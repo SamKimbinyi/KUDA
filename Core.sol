@@ -349,8 +349,8 @@ contract BEP20Standard is Context, IBEP20, Ownable {
   string private _name;
 
   constructor() public {
-    _name = "BEP20 Standard";
-    _symbol = "BEST";
+    _name = "KUDA Token";
+    _symbol = "KUDA";
     _decimals = 8;
     _totalSupply = 10000000000000; // 100 thousand
     _balances[msg.sender] = _totalSupply;
